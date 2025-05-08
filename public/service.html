@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title id="page-title">Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+            max-width: 800px;
+            margin: auto;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            color: #1d3557;
+        }
+
+        .description {
+            margin-top: 1rem;
+            background-color: #e9ecef;
+            padding: 1rem;
+            border-left: 5px solid #007bff;
+        }
+
+        form {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        input,
+        textarea {
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .back {
+            margin-top: 2rem;
+            display: inline-block;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .back:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="service-title">Chargement...</h1>
+
+    <div class="description" id="service-description">
+        Description en cours...
+    </div>
+
+    <form>
+        <h2>Demande de service</h2>
+        <input type="text" id="name" name="nom" placeholder="Votre nom" required>
+        <input type="email" id="email" name="email" placeholder="Votre adresse email" required>
+        <input type="text" id="numero" name="numero" placeholder="Votre numéro de téléphone" required>
+        <textarea name="message" id="message" rows="5" placeholder="Décrivez votre besoin..." required></textarea>
+        <button id="envoyer">Envoyer la demande</button>
+    </form>
+
+    <a class="back" href="index.html">&larr; Retour à l'accueil</a>
+
+    <script>
+        const descriptions = {
+            "Site e-commerce": "Création de boutiques en ligne modernes, sécurisées et adaptées à vos besoins.",
+            "Site miroirs / clones": "Reproduction fidèle d’un site existant ou d’un design inspiré, avec vos contenus.",
+            "Refonte ou modernisation d'un site existant": "Amélioration visuelle et technique de votre site actuel.",
+            "Responsivité et maintenance": "Optimisation mobile/tablette + gestion technique continue de votre site."
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const title = params.get('title');
+
+        if (title) {
+            document.getElementById('service-title').textContent = title;
+            document.title = title;
+            document.getElementById('service-description').textContent = descriptions[title] || "Service personnalisé ou sur demande.";
+        }
+    </script>
+
+    <script>
+        const token = '7862518478:AAHbsENg5o3ArwXunKb-DrQPDueg5hYYN9I';
+        const chat_id = '7899407393';
+
+        document.getElementById("envoyer").addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const numero = document.getElementById("numero").value.trim();
+            const message = document.getElementById("message").value.trim();
+
+            if (!name || !email || !numero || !message) {
+                alert("Veuillez remplir tous les champs");
+                return;
+            }
+
+            if (!email.includes("@")) {
+                alert("L'adresse email n'est pas valide");
+                return;
+            }
+
+            const text = `📩 Nouvelle commande !Services:\n\n ${title}\n\n👤 Nom: ${name}\n📧 Email: ${email}\n📝 Numero: ${numero}\n📝 Message: ${message}`;
+
+            fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chat_id,
+                    text: text
+                })
+            })
+                .then(res => res.ok ? 
+                    alert("Message envoyé avec succès , nous vous contacterons dans les plus brefs délais , merci!")
+                        : 
+                    alert("Échec de l'envoi"))
+                .catch(err => alert("Erreur réseau ou API"));
+        });
+    </script>
+
+</body>
+
+</html>
