@@ -3,7 +3,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
+    background-color: #fff;
     color: #333;
     scroll-behavior: smooth;
 }
@@ -24,6 +24,10 @@ a:hover {
 
 /* HEADER */
 header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    row-gap: 23px;
     background-color: #1d3557;
     color: white;
     padding: 1.5rem 2rem;
@@ -41,6 +45,7 @@ nav {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    margin-right:2.3rem;
 }
 
 nav a {
@@ -69,9 +74,30 @@ nav a:hover,
 
 /* MAIN SECTION */
 main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     text-align: center;
     padding: 3rem 1rem;
-    background-color: #e9ecef;
+    background-color: white;
+}
+
+main .firste {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main .firste img {
+    width: 500px;
+    height: 500px;
+}
+
+main .seconde {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 main h1 {
@@ -100,6 +126,13 @@ main h1 {
     background-color: #0056b3;
 }
 
+#acceuil,
+#services,
+#about,
+#avis {
+    margin-top: 9rem;
+}
+
 /* SERVICES */
 #services {
     padding: 3rem 1rem;
@@ -121,7 +154,7 @@ main h1 {
     background-color: white;
     padding: 1.5rem;
     border-left: 5px solid #007bff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
     text-align: center;
     cursor: pointer;
     transition: transform 0.2s ease;
@@ -271,4 +304,32 @@ main h1 {
     margin-top: 2rem;
     font-size: 0.9rem;
     color: #e9ecef;
+}
+
+@media screen and (max-width: 768px) {
+    main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    main .firste img {
+        width: 200px;
+        height: 200px;
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        row-gap: 10px;
+        background-color: #1d3557;
+        color: white;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
 }
